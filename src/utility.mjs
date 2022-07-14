@@ -8,22 +8,26 @@ import Mailjet from 'node-mailjet';
 import path from 'path';
 import { fileURLToPath } from 'url';
 import { writeFile } from 'fs'
+import dotenv from 'dotenv';
+
+dotenv.config();
 
 export const __filename = fileURLToPath(import.meta.url);
 export const __dirname = path.dirname(__filename);
 
 export const SERVER_IP = process.env.SERVER_IP;
 export const PAYSTACK_KEY = process.env.PAYSTACK_KEY;
-export const EMAIL_FROM = process.env.EMAIL_FROM|| 'obisiket@gmail.com';
-export const EMAIL_FROM_NAME = process.env.EMAIL_FROM_NAME || 'Spindex Forex Academy';
+export const EMAIL_FROM = process.env.EMAIL_FROM;
+export const MAILJET_API_KEY = process.env.MAILJET_API_KEY;
+export const MAILJET_SECRET_KEY = process.env.MAILJET_SECRET_KEY;
 
 export const FILE_PATH = join(__dirname, '..', 'safe');
 export const FILE_NAME = 'book.pdf'
 export const FIELD_NAME = 'file';
 
 const mailjet = new Mailjet({
-  apiKey: '363ff5c546ec5b821bf9c2943b3da35a',
-  apiSecret: '56826cb5d34ac7fed35f14c301cae7b4'
+  apiKey: MAILJET_API_KEY,
+  apiSecret: MAILJET_SECRET_KEY
 })
 
 export const paystackWebHookValidator = (secret) => (req, res, next) => {

@@ -13,6 +13,10 @@
     "sequelize": "^6.21.3",
     "sqlite3": "^5.0.8"
   },
+  "scripts": {
+    "start": "node ./src/index.mjs",
+    "dev": "nodemon ./src/index.mjs"
+  },
   "devDependencies": {
     "nodemon": "^2.0.19"
   }
