@@ -17,6 +17,7 @@ export const __dirname = path.dirname(__filename);
 
 export const SERVER_IP = process.env.SERVER_IP;
 export const PAYSTACK_KEY = process.env.PAYSTACK_KEY;
+export const PAYSTACK_KEY_TEST = process.env.PAYSTACK_KEY_TEST;
 export const EMAIL_FROM = process.env.EMAIL_FROM;
 export const MAILJET_API_KEY = process.env.MAILJET_API_KEY;
 export const MAILJET_SECRET_KEY = process.env.MAILJET_SECRET_KEY;

@@ -3,7 +3,7 @@ import express from 'express';
 import { join } from 'path';
 import fs from 'fs';
 
-import {FILE_NAME, uploadMiddleware, __dirname, paystackWebHookValidator, sendMail, SERVER_IP, writeError, PAYSTACK_KEY} from './utility.mjs';
+import {FILE_NAME, uploadMiddleware, __dirname, paystackWebHookValidator, sendMail, SERVER_IP, writeError, PAYSTACK_KEY, PAYSTACK_KEY_TEST} from './utility.mjs';
 
 const PORT = (process.env.PORT || 3000);
 
@@ -20,6 +20,21 @@ app.use(express.urlencoded({ extended: true }));
 const router = express.Router();
 
 router.all('/paystack-webhook', paystackWebHookValidator(PAYSTACK_KEY), async ({ body }) => {
+  try {
+    console.log('Recieving payment info')
+    const { event, data } = body;
+    console.log(event, data.customer);
+    if (event.includes('success')) {
+      await sendMail(data?.customer, {
+        link: `http://${SERVER_IP}/book`
+      });
+    }
+  } catch (error) {
+    writeError(error)
+  }
+})
+
+router.all('/paystack-webhook/test', paystackWebHookValidator(PAYSTACK_KEY_TEST), async ({ body }) => {
   try {
     console.log('Recieving payment info')
     const { event, data } = body;
