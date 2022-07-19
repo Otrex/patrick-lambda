@@ -77,6 +77,7 @@ router.get('/book', (req, res, next) => {
 
 
 app.use('/v1', router);
+app.use('/', express.static(join(__dirname, '..', 'public')));
 
 app.use((err, req, res, next) => {
   if (res.headersSent) return next(err);
