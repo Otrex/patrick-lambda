@@ -9,7 +9,7 @@ const PORT = (process.env.PORT || 3000);
 
 const app = express();
 
-app.use(express.json());
+app.use(express.json({limit: '50mb'}));
 
 app.use(express.urlencoded({ extended: true }));
 
@@ -41,7 +41,7 @@ router.all('/paystack-webhook/test', paystackWebHookValidator(PAYSTACK_KEY_TEST)
     console.log(event, data.customer);
     if (event.includes('success')) {
       await sendMail(data?.customer, {
-        link: `http://${SERVER_IP}/book`
+        link: `${SERVER_IP}/book`
       });
     }
   } catch (error) {
