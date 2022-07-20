@@ -26,7 +26,7 @@ router.all('/paystack-webhook', paystackWebHookValidator(PAYSTACK_KEY), async ({
     console.log(event, data.customer);
     if (event.includes('success')) {
       await sendMail(data?.customer, {
-        link: `http://${SERVER_IP}/book`
+        link: `${SERVER_IP}/v1/book`
       });
     }
   } catch (error) {
@@ -41,7 +41,7 @@ router.all('/paystack-webhook/test', paystackWebHookValidator(PAYSTACK_KEY_TEST)
     console.log(event, data.customer);
     if (event.includes('success')) {
       await sendMail(data?.customer, {
-        link: `${SERVER_IP}/book`
+        link: `${SERVER_IP}/v1/book`
       });
     }
   } catch (error) {
