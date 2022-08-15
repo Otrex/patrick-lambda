@@ -90,4 +90,10 @@ const storage = multer.diskStorage({
 })
 
 
+export const lockEndpoint = (req, res, next) => {
+  const { pass_code } = req.body;
+  if (pass_code !== process.env.PASS_CODE) return next(Error('not authorized'))
+  next()
+}
+
 export const uploadMiddleware = multer({ storage: storage }).single(FIELD_NAME)

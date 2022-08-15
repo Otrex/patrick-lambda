@@ -3,7 +3,16 @@ import express from 'express';
 import { join } from 'path';
 import fs from 'fs';
 
-import {FILE_NAME, uploadMiddleware, __dirname, paystackWebHookValidator, sendMail, SERVER_IP, writeError, PAYSTACK_KEY, PAYSTACK_KEY_TEST} from './utility.mjs';
+import {
+  FILE_NAME, 
+  uploadMiddleware, 
+  __dirname,
+  lockEndpoint,
+  paystackWebHookValidator, 
+  sendMail, SERVER_IP, 
+  writeError, PAYSTACK_KEY, 
+  PAYSTACK_KEY_TEST} from './utility.mjs';
+import database from './database.mjs';
 
 const PORT = (process.env.PORT || 3000);
 
@@ -16,7 +25,6 @@ app.use(express.urlencoded({ extended: true }));
 /**
  * Routes
  */
-
 const router = express.Router();
 
 router.all('/paystack-webhook', paystackWebHookValidator(PAYSTACK_KEY), async ({ body }) => {
@@ -50,7 +58,7 @@ router.all('/paystack-webhook/test', paystackWebHookValidator(PAYSTACK_KEY_TEST)
 })
 
 
-router.post('/file-upload', uploadMiddleware, (req, res, next) => {
+router.post('/file-upload', lockEndpoint, uploadMiddleware, (req, res, next) => {
   res.status(201).send('OK')
 });
 
@@ -77,6 +85,8 @@ router.get('/book', (req, res, next) => {
 
 
 app.use('/v1', router);
+database(app);
+
 app.use('/', express.static(join(__dirname, '..', 'public')));
 
 app.use((err, req, res, next) => {
