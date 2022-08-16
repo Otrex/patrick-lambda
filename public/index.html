@@ -73,7 +73,6 @@
                 <h2 id="webinar">Are you interested in the webinar?</h2>
               </div>
               <div class="box2-registration-form">
-                <form action="get" method="get">
                   <input
                     type="text"
                     name="fullname"
@@ -99,7 +98,6 @@
                   /><br />
                   <input type="submit" value="Register Now" class="submit">  
                   
-                </form>
                 <script>
                   function submit() {
                     const full_name = document.querySelector('input[name="fullname"]').value;
@@ -116,6 +114,8 @@
                       }
                     })
                   }
+
+                  document.querySelector('input[type="submit"]').onclick = submit;
                 </script>
               </div>
             </div>
