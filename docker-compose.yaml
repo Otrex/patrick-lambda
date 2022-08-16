@@ -20,7 +20,7 @@ services:
     ports:
       - "8083:80"
 
-  server-2:
+  server-3:
     environment:
       - MAILJET_SECRET_KEY=9e07444abea44abdccfd130f26f7bcc7
       - MAILJET_API_KEY=a955a37b2c711b607c67482307b5ebc2
