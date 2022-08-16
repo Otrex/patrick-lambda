@@ -10,20 +10,20 @@ services:
     ports:
       - "3306:3306"
    
-  phpmyadmin:
-    image: phpmyadmin/phpmyadmin:5.0.1
-    restart: always
-    environment:
-      PMA_HOST: mysql-server
-      PMA_USER: root
-      PMA_PASSWORD: secret
-    ports:
-      - "8083:80"
+  # phpmyadmin:
+  #   image: phpmyadmin/phpmyadmin:5.0.1
+  #   restart: always
+  #   environment:
+  #     PMA_HOST: mysql-server
+  #     PMA_USER: root
+  #     PMA_PASSWORD: secret
+  #   ports:
+  #     - "8083:80"
 
   server-2:
     environment:
-      - MAILJET_SECRET_KEY=revre
-      - MAILJET_API_KEY=revre
+      - MAILJET_SECRET_KEY=9e07444abea44abdccfd130f26f7bcc7
+      - MAILJET_API_KEY=a955a37b2c711b607c67482307b5ebc2
       - DB_DATABASE=spindex
       - DB_HOST=mysql-server
       - DB_PORT=3306
@@ -32,7 +32,7 @@ services:
       - SERVER_IP=deanalyst.co
       - PAYSTACK_KEY=sk_live_dc82e4100b9c6bec72ab8d9e8130b24ab7bf46a4
       - PAYSTACK_KEY_TEST=sk_test_d6d257200b4719c45c180efd452ed4fc1608f1bb
-      - EMAIL_FROM=patrick
+      - EMAIL_FROM=
       - EMAIL_FROM_NAME=Spindex
       - PASS_CODE=patpat
 
