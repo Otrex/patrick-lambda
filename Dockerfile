@@ -7,6 +7,6 @@ ENV PORT=5000
 
 EXPOSE 5000
 
-RUN npm install
+RUN yarn install
 
 CMD ["node", "./src/index.mjs"]
