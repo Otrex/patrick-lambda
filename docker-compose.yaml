@@ -1,5 +1,9 @@
 version: "3.7"
 services:
+  nginx:
+    build: ./nginx
+    ports:
+     - 80:80
   mysql-server:
     image: mysql:8.0.19
     restart: always

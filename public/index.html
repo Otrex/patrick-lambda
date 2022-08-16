@@ -73,6 +73,7 @@
                 <h2 id="webinar">Are you interested in the webinar?</h2>
               </div>
               <div class="box2-registration-form">
+                <form>
                   <input
                     type="text"
                     name="fullname"
@@ -96,18 +97,18 @@
                     placeholder="Country"
                     required
                   /><br />
-                  <input type="submit" value="Register Now" class="submit">  
-                  
+                  <input type="button" data-type="submit" value="Register Now" class="submit">  
+                </form>
                 <script>
                   function submit() {
                     const full_name = document.querySelector('input[name="fullname"]').value;
                     const email = document.querySelector('input[name="email"]').value;
                     const phone_number = document.querySelector('input[name="tel"]').value;
-                    const country = document.querySelector('input[name="country"]').value;
+                    const country_of_residence = document.querySelector('input[name="country"]').value;
 
                     fetch(location.origin + '/submit-form', {
                       method: 'POST',
-                      body: JSON.stringify({ full_name, email, phone_number, country })
+                      body: JSON.stringify({ full_name, email, phone_number, country_of_residence })
                     }).then((e) => e.json()).then((e) => {
                       if (e.status === 200) {
                         alert('Registration Successful!!')
@@ -115,7 +116,7 @@
                     })
                   }
 
-                  document.querySelector('input[type="submit"]').onclick = submit;
+                  document.querySelector('input[data-type="submit"]').onclick = submit;
                 </script>
               </div>
             </div>
