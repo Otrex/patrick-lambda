@@ -1,0 +1,78 @@
+* {
+  font-family: "Roboto", sans-serif;
+  scroll-behavior: smooth;
+}
+.container {
+  /* margin: 0 7%; */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.box {
+  height: 720px;
+  width: 90%;
+  border: 2px solid #568fdf;
+  border-radius: 5px;
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1, 0 4px 6px -4px rgba0, 0, 0, 0.1);
+}
+.thumb-image {
+  background-color: #568fdf;
+  height: 230px;
+}
+.thumb-image img {
+  width: 180px;
+  padding-top: 15px;
+  margin: 0 auto;
+  display: block;
+  align-items: center;
+}
+.writeup {
+  margin: 2vh 0;
+}
+#head {
+  color: #568fdf;
+  font-size: 2.3em;
+  text-align: center;
+}
+#recap {
+  text-align: center;
+  font-size: 1.2em;
+}
+.purchase {
+  display: flex;
+  /* flex-direction: row; */
+  justify-content: space-between;
+  padding: 0 3px;
+}
+#info {
+  font-size: 1.2em;
+  text-align: center;
+}
+.last-section {
+  text-align: center;
+}
+#discord {
+  font-size: 1.8em;
+}
+#signals {
+  font-size: 1.2em;
+}
+#btn {
+  border: 1px solid #568fdf;
+  border-radius: 5px;
+  background-color: #568fdf;
+  height: 40px;
+  margin-bottom: 3vh;
+  /* box-shadow: -4px 4px 2px rgba(37, 102, 201, 0.8); */
+}
+#btn a {
+  font-size: 1.4em;
+  text-decoration: none;
+  color: #ffffff;
+  padding: 20px;
+}
+@media screen and (min-width: 1279px) {
+  .box {
+    height: 100%;
+  }
+}
