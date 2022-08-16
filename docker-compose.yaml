@@ -1,55 +1,139 @@
-version: '3.9'
+# version: '3.9'
+# services:
+#   # mysql:
+#   #   # Use mysql:8.0.19 image
+#   #   image: mysql:8.0.19
+#   #   # Connect to "my-network" network, as defined below
+#   #   networks:
+#   #     - my-network
+#   #   # Pass a list of environment variables to the container
+#   #   environment:
+#   #     MYSQL_ROOT_PASSWORD: my-secret-pw
+#   #     MYSQL_DATABASE: spindex
+#   #     MYSQL_USER: db_user
+
+#   # # phpMyAdmin container
+#   # phpmyadmin5:
+#   #   # Use phpmyadmin/phpmyadmin:5.0.2 image
+#   #   image: phpmyadmin/phpmyadmin:5.0.2
+#   #   # Connect to "my-network" network, as defined below
+#   #   networks:
+#   #     - my-network
+#   #   # Map port 8080 on the host to port 80 inside the container
+#   #   # Syntax is: "HOST_PORT:CONTAINER_PORT"
+#   #   ports:
+#   #     - "8082:80"
+#   #   # Pass a list of environment variables to the container
+#   #   environment:
+#   #     PMA_HOST: mysql
+#   #     PMA_USER: db_user
+#   #     PMA_PASSWORD: my-secret-pw
+#   #   # Wait for "mysql" container to start first
+#   #   depends_on:
+#   #     - mysql
+
+#   # db:
+#   #   image: mysql:5.7
+#   #   container_name: db
+#   #   environment:
+#   #     MYSQL_ROOT_PASSWORD: my_secret_password
+#   #     MYSQL_DATABASE: spindex
+#   #     MYSQL_USER: db_user
+#   #     MYSQL_PASSWORD: db_user_pass
+#   #   ports:
+#   #     - "6033:3306"
+#   #   volumes:
+#   #     - dbdata:/var/lib/mysql
+#   #     - /my/conf:/etc/mysql/conf.d
+
+#   phpmyadmin-test:
+#     image: phpmyadmin/phpmyadmin
+#     container_name: pma-01
+#     environment:
+#       PMA_HOST: patrick-01.c18pfw1qh8he.us-east-1.rds.amazonaws.com
+#       PMA_PORT: 3306
+#       PMA_USER: root
+#       PMA_PASSWORD: rootpassword
+#       # PMA_ARBITRARY: 1
+#     restart: always
+#     ports:
+#       - 8081:80
+
+#   # server-2:
+#     # depends_on:
+#     #   - db
+#     # links:
+#     #   - db
+#     # networks:
+#     #   - my-network
+#     # environment:
+#     #   - MAILJET_SECRET_KEY=revre
+#     #   - MAILJET_API_KEY=revre
+#     #   - DB_DATABASE=spindex
+#     #   - DB_HOST=db
+#     #   - DB_PORT=3306
+#     #   - DB_PASS=db_user_pass
+#     #   - DB_USER=db_user
+#     #   - SERVER_IP=deanalyst.co
+#     #   - PAYSTACK_KEY=rytuiyftlijdel
+#     #   - PAYSTACK_KEY_TEST=hirehe
+#     #   - EMAIL_FROM=patrick
+#     #   - EMAIL_FROM_NAME=fef
+#     #   - PASS_CODE=1234
+
+#     # build: .
+#     # ports:
+#     #  - 5000:5000
+#     # volumes:
+#     #  - .:/code
+# # volumes:
+# #   dbdata:
+
+# # networks:
+# #   my-network:
+
+version: "3.7"
 services:
-  nginx:
-    build: ./nginx
-    ports:
-      - 80:80
-
-  db:
-    image: mysql:5.7
-    container_name: db
-    environment:
-      MYSQL_ROOT_PASSWORD: my_secret_password
-      MYSQL_DATABASE: spindex
-      MYSQL_USER: db_user
-      MYSQL_PASSWORD: db_user_pass
-    ports:
-      - "6033:3306"
-    volumes:
-      - dbdata:/var/lib/mysql
-
-  phpmyadmin:
-    image: phpmyadmin/phpmyadmin
-    container_name: pma
-    links:
-      - db
-    environment:
-      PMA_HOST: db
-      PMA_PORT: 3306
-      PMA_USER: db_user
-      PMA_PASSWORD: db_user_pass
-      # PMA_ARBITRARY: 1
+  mysql-server:
+    image: mysql:8.0.19
     restart: always
-    ports:
-      - 8081:80
-
-  web:
-    depends_on:
-      - db
     environment:
-      - DATABASE=red
+      MYSQL_ROOT_PASSWORD: secret
+    volumes:
+      - mysql-data:/var/lib/mysql
+    ports:
+      - "3306:3306"
+   
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin:5.0.1
+    restart: always
+    environment:
+      PMA_HOST: mysql-server
+      PMA_USER: root
+      PMA_PASSWORD: secret
+    ports:
+      - "8083:80"
+
+  server-2:
+    environment:
+      - MAILJET_SECRET_KEY=revre
+      - MAILJET_API_KEY=revre
+      - DB_DATABASE=spindex
+      - DB_HOST=mysql-server
+      - DB_PORT=3306
+      - DB_PASS=secret
+      - DB_USER=root
+      - SERVER_IP=deanalyst.co
+      - PAYSTACK_KEY=rytuiyftlijdel
+      - PAYSTACK_KEY_TEST=hirehe
+      - EMAIL_FROM=patrick
+      - EMAIL_FROM_NAME=fef
+      - PASS_CODE=1234
+
     build: .
     ports:
      - 5000:5000
-    command: node start
     volumes:
      - .:/code
-
-
 volumes:
-  dbdata:
-
-networks:
-  db-net:
-
-    
+  mysql-data:

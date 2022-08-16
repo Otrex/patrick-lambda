@@ -13,6 +13,7 @@ const createDatabaseIfNotExists = async () => {
     host: process.env.DB_HOST || 'localhost',
     port: Number(process.env.DB_PORT || 3306),
     user: process.env.DB_USER || 'root',
+    password: process.env.DB_PASS || 'pass',
     multipleStatements: true,
   });
 
@@ -41,6 +42,7 @@ const createDatabaseRecord = async (payload) => {
     host: process.env.DB_HOST || 'localhost',
     port: Number(process.env.DB_PORT || 3306),
     user: process.env.DB_USER || 'root',
+    password: process.env.DB_PASS || 'pass',
     database: process.env.DB_DATABASE || 'patrick_contact_form',
   });
 
